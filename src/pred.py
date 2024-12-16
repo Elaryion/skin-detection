@@ -11,9 +11,8 @@ from copy import deepcopy
 
 import nms
 from model import Model
-from image_loader import ImageLoader
+from image_loader import load_image
 from present import BoundingBoxPlotter
-
 
 # Define the path to the save image folder
 save_path = "./results"
@@ -21,7 +20,7 @@ save_path = "./results"
 image_path = "./images/lico2.jpg"
 
 # Use the static method to load and preprocess the image
-image, image_tensor = ImageLoader.load_image(image_path)
+image, image_tensor = load_image(image_path)
 
 # Access the results
 print("Image loaded successfully.")
