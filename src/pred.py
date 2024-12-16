@@ -15,8 +15,8 @@ from image_loader import ImageLoader
 from present import BoundingBoxPlotter
 
 
-
-
+# Define the path to the save image folder
+save_path = "./results"
 # Define the path to the image file
 image_path = "./images/lico2.jpg"
 
@@ -59,4 +59,5 @@ keep_indices, count = nms.nms(pred_boxes, pred_scores, 0.3)
 nms_boxes, nms_labels = pred_boxes[keep_indices[:count]], pred_labels[keep_indices[:count]]
 
 # Plot the results
-BoundingBoxPlotter.plot_with_bbox(image, nms_boxes.numpy().astype(np.int32), nms_labels.numpy())
+# BoundingBoxPlotter.plot_with_bbox(image, nms_boxes.numpy().astype(np.int32), nms_labels.numpy())
+BoundingBoxPlotter.save_image_with_bbox(image, nms_boxes.numpy().astype(np.int32), nms_labels.numpy(),save_path,"procesed1.jpg")
