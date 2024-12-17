@@ -41,21 +41,6 @@ async def run_job(base64_img):
     jpg_img = cv2.imencode('.jpg', img)
     return base64.b64encode(jpg_img[1]).decode('utf-8')
 
-
-async def read_body(receive):
-    """
-    Read and return the entire body from an incoming ASGI message.
-    """
-    body = b''
-    more_body = True
-
-    while more_body:
-        message = await receive()
-        body += message.get('body', b'')
-        more_body = message.get('more_body', False)
-
-    return body
-    
 async def app(scope, receive, send):
     assert scope['type'] == 'http'
 
@@ -76,6 +61,20 @@ async def app(scope, receive, send):
         'type': 'http.response.body',
         'body': img.encode('utf-8'),
     })
+
+async def read_body(receive):
+    """
+    Read and return the entire body from an incoming ASGI message.
+    """
+    body = b''
+    more_body = True
+
+    while more_body:
+        message = await receive()
+        body += message.get('body', b'')
+        more_body = message.get('more_body', False)
+
+    return body
 
 if __name__ == "__main__":
     uvicorn.run("serv:app", port=5000, log_level="info")

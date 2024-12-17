@@ -7,7 +7,6 @@ from copy import deepcopy
 class BoundingBoxPlotter:
     @staticmethod
     def plot_with_bbox(img, nms_boxes, nms_labels):
-
         try:
             linewidth = img.shape[0] // 500  # Adjust line width based on image size
             img_copy = deepcopy(img)

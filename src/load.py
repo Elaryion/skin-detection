@@ -9,6 +9,13 @@ from pathlib import Path
 from copy import deepcopy
 
 from model import Model
+import socket
+import qrcode_terminal
+hostname = socket.gethostname()
+IPAddr = socket.gethostbyname(hostname)
+addr = IPAddr + ":5000"
+print("Server started on:", addr)
+qrcode_terminal.draw(addr)
 
 # Define the path to the save image folder
 save_path = "./results"
