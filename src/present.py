@@ -7,7 +7,6 @@ from copy import deepcopy
 class BoundingBoxPlotter:
     @staticmethod
     def plot_with_bbox(img, nms_boxes, nms_labels):
-
         try:
             linewidth = img.shape[0] // 500  # Adjust line width based on image size
             img_copy = deepcopy(img)
@@ -57,5 +56,24 @@ class BoundingBoxPlotter:
             # Save the image
             cv2.imwrite(output_path, cv2.cvtColor(img_copy, cv2.COLOR_RGB2BGR))
             print(f"Image saved to {output_path}")
+        except Exception as e:
+            raise RuntimeError(f"Failed to save image with bounding boxes: {e}")
+
+    @staticmethod
+    def encode_image_with_bbox(img, nms_boxes, nms_labels):
+        try:
+            linewidth = img.shape[0] // 500  # Adjust line width based on image size
+            img_copy = deepcopy(img)
+
+            # Draw bounding boxes on the image
+            for box, _class in zip(nms_boxes, nms_labels):
+                cv2.rectangle(img_copy, 
+                              (box[0], box[1]), 
+                              (box[2], box[3]),
+                              acne_configs.ID_COLOR[_class], 
+                              linewidth)
+
+            return cv2.cvtColor(img_copy, cv2.COLOR_RGB2BGR)
+
         except Exception as e:
             raise RuntimeError(f"Failed to save image with bounding boxes: {e}")
